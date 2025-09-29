@@ -29,7 +29,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |09-24-2025|---2:10---|--tm--|Made a  plan to look at how ot make a chrome extention|-60--|
 |09-26-2025|--2:15--|--im-- |worked on figuring out how to connect to a database|--50--|
 |09-29-2025|--10:00--|--tm--|------made a hello world chrome extesion------|--30--|
-|          |          |        |                                            |             |
+|09-29-2025|--12:45--|--im--|--connected code to the database--|--60--|
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 
