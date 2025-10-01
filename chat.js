@@ -1,11 +1,17 @@
-// Import the functions you need from the SDKs you need
+// Import Firebase SDK
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  serverTimestamp, 
+  query, 
+  orderBy, 
+  onSnapshot 
+} from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBVbdiZKgguWUUOnlZxEPhsWRq9ntLnnP4",
   authDomain: "my-chat-system-ceba7.firebaseapp.com",
@@ -19,3 +25,39 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+// Elements
+const messagesDiv = document.getElementById("messages");
+const input = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+
+// Fake user ID (replace with Firebase Auth later)
+const userId = "user_" + Math.floor(Math.random() * 1000);
+
+// --- SEND MESSAGE ---
+sendBtn.addEventListener("click", async () => {
+  const text = input.value.trim();
+  if (text) {
+    await addDoc(collection(db, "messages"), {
+      text: text,
+      senderId: userId,
+      timestamp: serverTimestamp()
+    });
+    input.value = "";
+  }
+});
+
+// --- LISTEN FOR MESSAGES ---
+const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+
+onSnapshot(q, (snapshot) => {
+  messagesDiv.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const msg = doc.data();
+    const p = document.createElement("p");
+    p.textContent = `${msg.senderId}: ${msg.text}`;
+    messagesDiv.appendChild(p);
+  });
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
