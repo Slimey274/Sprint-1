@@ -1,8 +1,8 @@
 # CSE 310 - Sprint Time Log
 
-Name:
+Name Briant Woolley:
 
-Sprint #:
+Sprint #1:
 
 ## Instructions
 
@@ -44,7 +44,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         |                          |
-|TP - Team Project              |                          |
-|MTG - Class Meetings           |                          |
-|**TOTAL**                      |                          |
+|IM - Individual Module         |        4:20 hours        |
+|TP - Team Project              |        4 hours           |
+|MTG - Class Meetings           |        4 hours           |
+|**TOTAL**                      |          12:20           |
