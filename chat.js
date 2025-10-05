@@ -10,6 +10,7 @@ import {
   orderBy, 
   onSnapshot 
 } from "firebase/firestore";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 // Your Firebase config
 const firebaseConfig = {
@@ -26,19 +27,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Elements
+// UI Elements
 const messagesDiv = document.getElementById("messages");
 const input = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 
-// Fake user ID (replace with Firebase Auth later)
-const userId = "user_" + Math.floor(Math.random() * 1000);
+let userId = null; // will be set when signed in
+
+// --- AUTHENTICATION (Anonymous) ---
+signInAnonymously(auth)
+  .then(() => console.log("Signed in anonymously"))
+  .catch((error) => console.error("Auth error:", error));
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    userId = user.uid;
+    console.log("User signed in:", user.uid);
+  }
+});
 
 // --- SEND MESSAGE ---
 sendBtn.addEventListener("click", async () => {
   const text = input.value.trim();
-  if (text) {
+  if (text && userId) {
     await addDoc(collection(db, "messages"), {
       text: text,
       senderId: userId,
@@ -56,8 +69,29 @@ onSnapshot(q, (snapshot) => {
   snapshot.forEach((doc) => {
     const msg = doc.data();
     const p = document.createElement("p");
-    p.textContent = `${msg.senderId}: ${msg.text}`;
+    p.textContent = msg.text;
+    p.style.padding = "6px";
+    p.style.borderRadius = "6px";
+    p.style.margin = "4px 0";
+
+    if (msg.senderId === userId) {
+      p.style.backgroundColor = "#dcf8c6";
+      p.style.textAlign = "right";
+    } else {
+      p.style.backgroundColor = "#f1f0f0";
+      p.style.textAlign = "left";
+    }
+
     messagesDiv.appendChild(p);
   });
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    userId = user.uid;
+    user.displayName = "User " + user.uid.slice(-4); // show last 4 chars
+  }
+});
+
+p.textContent = `${msg.senderId.slice(-4)}: ${msg.text}`;

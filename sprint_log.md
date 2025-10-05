@@ -30,8 +30,13 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |09-26-2025|--2:15--|--im-- |worked on figuring out how to connect to a database|--50--|
 |09-29-2025|--10:00--|--tm--|------made a hello world chrome extesion------|--30--|
 |09-29-2025|--12:45--|--im--|--connected code to the database--|--60--|
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+|09-24-2025|---2:10---|--tm--|--we formed the team and figured out the project and who was gonna do what|--60--|
+|10-01-2025|---12:45---|--im--|worked on my project |--60--|
+|10-4-2025|--9:10--|--im--| i worked on my project and tried to add users  |--60--|
+|09-29-2025|2:10|--tm--| we talked about  what we are doing for the next sprint  |--60--|
+|09-26-2025|      cm    |    2:00    |     we talked about how the project is going    |--60--|
+|09-29-2025|     cm     |    2:00    |we talked about how the project is going|--60--|
+|09-24-2025|     cm     |    2:00    |we talked about how the project is going|--60--|
 
 _Note: Add more rows as needed._
 
